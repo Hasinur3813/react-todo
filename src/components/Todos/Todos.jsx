@@ -1,7 +1,7 @@
 import React from "react";
 import Todo from "./Todo";
 
-const Todos = ({ todos, onSelectTodo, handleCheck }) => {
+const Todos = ({ todos, onSelectTodo, handleCheck, handleRemoveTodo }) => {
   return (
     <div className="space-y-6">
       {todos.length === 0 && (
@@ -15,6 +15,7 @@ const Todos = ({ todos, onSelectTodo, handleCheck }) => {
             todo={todo}
             onSelectTodo={onSelectTodo}
             handleCheck={handleCheck}
+            handleRemoveTodo={handleRemoveTodo}
           />
         ))}
     </div>

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import EditContent from "./EditContent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ConfirmRemove from "./ConfirmRemove";
 
 const staticTodo = [
   {
@@ -21,7 +22,7 @@ const staticTodo = [
   {
     id: 2,
     todo: "Have to complte the app",
-    priority: "High",
+    priority: "Medium",
     date: "24th July 24",
     checked: false,
     completed: false,
@@ -42,21 +43,25 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
-
+  const [showRTodoPopup, setRTodoPopup] = useState(false);
   useEffect(() => {
     setTodos(staticTodo);
   }, []);
 
+  // handle the todo that is checked as markded
   const handleCheck = (id) => {
-    let checkedTodo = todos.map((todo) =>
-      todo.id === parseInt(id)
-        ? { ...todo, checked: !todo.checked, completed: !todo.completed }
-        : todo
-    );
+    let modifiedTodo = todos.map((todo) => {
+      if (todo.id === parseInt(id)) {
+        return { ...todo, checked: !todo.checked, completed: !todo.completed };
+      } else {
+        return todo;
+      }
+    });
 
-    setTodos(checkedTodo);
-    console.log(checkedTodo);
+    setTodos(modifiedTodo);
   };
+
+  // edit and update the todo
 
   const handleUpdateTodo = (e, updateText) => {
     e.preventDefault();
@@ -67,15 +72,42 @@ const App = () => {
     );
     toast("Your Todo has been updated...");
     setShowPopup(false);
+    setSelectedTodo(null);
   };
 
+  // select a todo for editing the todo
   const onSelectTodo = (todo) => {
-    setSelectedTodo(todo);
-    setShowPopup(true);
+    if (todo.completed) {
+      toast("Todo is already marked as completed!");
+    } else {
+      setSelectedTodo(todo);
+      setShowPopup(true);
+    }
   };
 
+  // show edit popup or not base on the state
   const handlePopup = () => {
     setShowPopup(false);
+    setSelectedTodo(null);
+  };
+
+  // remove a todo from todos
+
+  const handleRemoveTodo = (todo) => {
+    setRTodoPopup(true);
+    setSelectedTodo(todo);
+  };
+
+  const closePopup = () => {
+    setRTodoPopup(false);
+    setSelectedTodo(null);
+  };
+
+  const deleteTodo = (id) => {
+    let updatedTodos = todos.filter((todo) => todo.id !== parseInt(id));
+    setTodos(updatedTodos);
+    toast("Removed the todo");
+    setRTodoPopup(false);
     setSelectedTodo(null);
   };
 
@@ -90,12 +122,20 @@ const App = () => {
           handleUpdateTodo={handleUpdateTodo}
           onSelectTodo={onSelectTodo}
           handleCheck={handleCheck}
+          handleRemoveTodo={handleRemoveTodo}
         />
         {selectedTodo && showPopup && (
           <EditContent
             handlePopup={handlePopup}
             text={selectedTodo.todo}
             handleUpdateTodo={handleUpdateTodo}
+          />
+        )}
+        {showRTodoPopup && (
+          <ConfirmRemove
+            deleteTodo={deleteTodo}
+            id={selectedTodo.id}
+            closePopup={closePopup}
           />
         )}
 

@@ -21,7 +21,7 @@ const Todo = (props) => {
           className={`${
             props.todo.priority === "High"
               ? "bg-green-700"
-              : props.priority === "Medium"
+              : props.todo.priority === "Medium"
               ? "bg-yellow-600"
               : "bg-red-500"
           } rounded-sm text-white px-2`}
@@ -40,6 +40,7 @@ const Todo = (props) => {
           className="fa-solid fa-pen text-pColor cursor-pointer"
         ></i>
         <i
+          onClick={(e) => props.handleRemoveTodo(props.todo)}
           id={props.todo.id}
           title="Delete"
           className="fa-solid fa-trash text-red-600 cursor-pointer"
