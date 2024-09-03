@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Management Task</title>
+    <link href="./index.css" rel="stylesheet" />
+
+    <!-- tailwindcss cdn -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- fontawesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- tailwindcss config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: {
+            poppins: ["Poppins", "sans-serif"],
+          },
+          extend: {
+            colors: {
+              pColor: "#3479d9",
+              sColor: "#ebf2fc",
+              gray: "#c2d8f6",
+              darkMode: "#031025",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-sColor font-poppins">
+    <div class="max-w-screen-lg mx-auto">
+      <div class="py-8 px-4">
+        <!-- heading -->
+        <div class="flex justify-center items-center gap-2">
+          <i
+            class="fa-solid fa-square-check text-pColor text-xl lg:text-3xl"
+          ></i>
+          <h1 class="text-pColor text-xl lg:text-4xl">Smart Management Task</h1>
+        </div>
+
+        <!-- add todo  -->
+        <div class="mt-10 lg:mt-20">
+          <button
+            class="border w-full border-pColor text-left p-2 lg:px-4 lg:py-3 rounded-lg bg-slate-200 text-lg shadow-md text-slate-700 flex justify-between"
+            type="button"
+          >
+            Add New...
+          </button>
+
+          <hr class="mt-12 mb-3 text-pColor rounded-lg" />
+        </div>
+
+        <!-- features -->
+        <div
+          class="flex gap-3 lg:gap-5 md:justify-end overflow-x-auto pb-3 md:py-0"
+        >
+          <!-- theme -->
+
+          <label>
+            Theme
+            <select
+              class="bg-slate-200 px-3 rounded-sm border border-pColor md:ms-1"
+              name=""
+              id=""
+            >
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+
+          <!-- filter -->
+          <label>
+            Filter
+            <select
+              class="bg-slate-200 px-3 rounded-sm border border-pColor md:ms-1"
+              name=""
+              id=""
+            >
+              <option value="All">All</option>
+              <option value="Completed">Completed</option>
+              <option value="Pending">Pending</option>
+              <option value="Active">Active</option>
+            </select>
+          </label>
+
+          <!-- sort -->
+          <label>
+            Sort
+            <select
+              class="bg-slate-200 px-3 rounded-sm border border-pColor ms-1"
+              name=""
+              id=""
+            >
+              <option value="Auto">Auto</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- todos container -->
+        <div class="space-y-6">
+          <!-- todo 1 -->
+          <div
+            class="mt-20 flex flex-col md:flex-row gap-y-4 justify-between p-3 rounded-md bg-slate-200 hover:bg-slate-300 duration-200"
+          >
+            <div class="flex justify-start items-center gap-4">
+              <input class="lg:w-5 lg:h-5" type="checkbox" name="" id="" />
+              <p class="lg:text-base">Buy groceries for next week loan</p>
+            </div>
+
+            <div class="flex gap-4 justify-end md:justify-center items-center">
+              <span class="bg-green-700 rounded-sm text-white px-2">High</span>
+
+              <span class="border border-pColor px-2 text-gray-50">
+                24 Aug 24
+              </span>
+
+              <i
+                title="Edit"
+                class="fa-solid fa-pen text-pColor cursor-pointer"
+              ></i>
+              <i
+                title="Delete"
+                class="fa-solid fa-trash text-red-600 cursor-pointer"
+              ></i>
+            </div>
+          </div>
+          <div
+            class="mt-20 flex flex-col md:flex-row gap-y-4 justify-between p-3 rounded-md bg-slate-200 hover:bg-slate-300 duration-200"
+          >
+            <div class="flex justify-start items-center gap-4">
+              <input class="lg:w-5 lg:h-5" type="checkbox" name="" id="" />
+              <p class="lg:text-base">Buy groceries for next week loan</p>
+            </div>
+
+            <div class="flex gap-4 justify-end md:justify-center items-center">
+              <span class="bg-green-700 rounded-sm text-white px-2">High</span>
+
+              <span class="border border-pColor px-2 text-gray-50">
+                24 Aug 24
+              </span>
+
+              <i
+                title="Edit"
+                class="fa-solid fa-pen text-pColor cursor-pointer"
+              ></i>
+              <i
+                title="Delete"
+                class="fa-solid fa-trash text-red-600 cursor-pointer"
+              ></i>
+            </div>
+          </div>
+          <div
+            class="mt-20 flex flex-col md:flex-row gap-y-4 justify-between p-3 rounded-md bg-slate-200 hover:bg-slate-300 duration-200"
+          >
+            <div class="flex justify-start items-center gap-4">
+              <input class="lg:w-5 lg:h-5" type="checkbox" name="" id="" />
+              <p class="lg:text-base">Buy groceries for next week loan</p>
+            </div>
+
+            <div class="flex gap-4 justify-end md:justify-center items-center">
+              <span class="bg-green-700 rounded-sm text-white px-2">High</span>
+
+              <span class="border border-pColor px-2 text-gray-50">
+                24 Aug 24
+              </span>
+
+              <i
+                title="Edit"
+                class="fa-solid fa-pen text-pColor cursor-pointer"
+              ></i>
+              <i
+                title="Delete"
+                class="fa-solid fa-trash text-red-600 cursor-pointer"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- popup -->
+      <div
+        class="hidden w-full h-full bg-slate-700 bg-opacity-50 justify-center items-center absolute top-0 left-0"
+      >
+        <div class="p-5 bg-white rounded-md shadow-lg w-72 md:w-80">
+          <h1 class="text-center mb-5 text-xl text-pColor">Add New Todo</h1>
+
+          <label for="text">
+            Type something
+            <input
+              class="block w-full border border-pColor px-2 my-1 rounded py-2 text-slate-400"
+              type="text"
+              name=""
+              id="text"
+              placeholder="Enter your needs here"
+            />
+          </label>
+
+          <label class="my-5 block" for="date">
+            Date to be finished the Todo
+            <input
+              class="block mt-1 border border-pColor px-3 py-2 rounded w-full"
+              type="date"
+              name=""
+              id="date"
+            />
+          </label>
+
+          <label for="priority">
+            Select Priority
+            <select
+              name=""
+              id="priority"
+              class="mt-1 w-full px-3 py-2 rounded border border-pColor"
+            >
+              <option value="select">Select</option>
+              <option value="select">High</option>
+              <option value="select">Medium</option>
+              <option value="select">Low</option>
+            </select>
+          </label>
+
+          <div class="flex justify-between mt-10">
+            <button
+              class="border border-red-400 px-3 py-1 rounded bg-red-50 hover:bg-red-200 duration-200"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="border border-pColor px-3 py-1 rounded bg-pColor text-white hover:bg-blue-500 duration-200"
+              type="button"
+            >
+              Add New
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
