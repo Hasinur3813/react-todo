@@ -8,6 +8,7 @@ const Todos = ({
   handleCheck,
   handleRemoveTodo,
   filter,
+  handleAddTodo,
 }) => {
   const filteredTodos =
     filter === "completed" ? todos.filter((todo) => todo.completed) : todos;
@@ -21,23 +22,12 @@ const Todos = ({
           </h1>
 
           <Button
+            onClick={handleAddTodo}
             className="bg-pColor text-white hover:bg-blue-500"
             text="Add New"
           />
         </div>
       )}
-
-      {todos &&
-        filter === "all" &&
-        todos.map((todo, index) => (
-          <Todo
-            key={index * 9}
-            todo={todo}
-            onSelectTodo={onSelectTodo}
-            handleCheck={handleCheck}
-            handleRemoveTodo={handleRemoveTodo}
-          />
-        ))}
 
       {filteredTodos.length > 0 ? (
         filteredTodos.map((todo) => (

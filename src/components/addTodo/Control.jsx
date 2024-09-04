@@ -1,11 +1,11 @@
 import React from "react";
 import Button from "../Button";
 
-const Control = ({ type, text, handlePopup }) => {
+const Control = ({ type, text, handlePopup, handleAddTodo }) => {
   return (
     <div className="flex justify-between mt-10">
       <Button
-        onClick={handlePopup}
+        onClick={handlePopup || handleAddTodo}
         text="Cancel"
         className="border border-red-400 bg-red-50 hover:bg-red-200 "
       />

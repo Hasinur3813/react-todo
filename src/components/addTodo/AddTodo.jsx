@@ -1,9 +1,10 @@
 import React from "react";
 
-const AddTodo = () => {
+const AddTodo = ({ handleAddTodo }) => {
   return (
     <div className="mt-10 lg:mt-20">
       <button
+        onClick={handleAddTodo}
         className="hover:bg-slate-300 duration-200 text-center border w-full border-pColor p-2 lg:px-4 lg:py-3 rounded-lg bg-slate-200 text-lg shadow-md text-slate-700"
         type="button"
       >

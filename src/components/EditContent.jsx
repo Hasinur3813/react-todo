@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from "./addTodo/Popup";
+import Popup from "./Popup";
 import Control from "./addTodo/Control";
 
 const EditContent = ({ text, handlePopup, handleUpdateTodo }) => {

@@ -8,6 +8,7 @@ import EditContent from "./EditContent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmRemove from "./ConfirmRemove";
+import AddTodoPopup from "./addTodo/AddTodoPopup";
 
 const staticTodo = [
   {
@@ -44,11 +45,17 @@ const App = () => {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [showRTodoPopup, setRTodoPopup] = useState(false);
+  const [showTodoAdd, setShowTodoAdd] = useState(false);
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     setTodos(staticTodo);
   }, []);
+
+  // handle add todo button
+  const handleAddTodo = () => {
+    setShowTodoAdd(!showTodoAdd);
+  };
 
   // handle the todo that is checked as markded
   const handleCheck = (id) => {
@@ -123,7 +130,7 @@ const App = () => {
     <div className="font-display">
       <Layout>
         <Heading />
-        <AddTodo />
+        <AddTodo handleAddTodo={handleAddTodo} />
         <Features handleFilterButton={handleFilterButton} />
         <Todos
           todos={todos}
@@ -132,6 +139,7 @@ const App = () => {
           handleCheck={handleCheck}
           handleRemoveTodo={handleRemoveTodo}
           filter={filter}
+          handleAddTodo={handleAddTodo}
         />
         {selectedTodo && showPopup && (
           <EditContent
@@ -147,6 +155,7 @@ const App = () => {
             closePopup={closePopup}
           />
         )}
+        {showTodoAdd && <AddTodoPopup handleAddTodo={handleAddTodo} />}
 
         <ToastContainer />
       </Layout>

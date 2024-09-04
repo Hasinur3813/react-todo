@@ -1,14 +1,15 @@
 import React from "react";
 import Control from "./Control";
+import Popup from "../Popup";
 
-const Form = () => {
+const AddTodoPopup = ({ handleAddTodo }) => {
   return (
-    <div>
+    <Popup content="Add New Todo">
       <form>
         <label htmlFor="text">
           Type something
           <input
-            className="block w-full border border-pColor px-2 my-1 rounded py-2 text-slate-400"
+            className="block w-full border border-pColor px-2 my-1 rounded py-2 text-slate-400 focus:text-black"
             type="text"
             name=""
             id="text"
@@ -39,10 +40,10 @@ const Form = () => {
             <option value="select">Low</option>
           </select>
         </label>
-        <Control type="submit" text="Add New" />
+        <Control type="submit" text="Add New" handleAddTodo={handleAddTodo} />
       </form>
-    </div>
+    </Popup>
   );
 };
 
-export default Form;
+export default AddTodoPopup;

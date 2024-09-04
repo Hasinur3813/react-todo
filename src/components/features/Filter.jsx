@@ -6,30 +6,12 @@ const Filter = ({ handleFilterButton }) => {
       Filter
       <select
         className="bg-slate-200 px-3 rounded-sm border border-pColor ms-1"
-        name=""
-        id=""
+        onChange={(e) => handleFilterButton(e.target.value)}
       >
-        <option value="all" onClick={(e) => handleFilterButton(e.target.value)}>
-          All
-        </option>
-        <option
-          value="completed"
-          onClick={(e) => handleFilterButton(e.target.value)}
-        >
-          Completed
-        </option>
-        <option
-          value="pending"
-          onClick={(e) => handleFilterButton(e.target.value)}
-        >
-          Pending
-        </option>
-        <option
-          value="Active"
-          onClick={(e) => handleFilterButton(e.target.value)}
-        >
-          Active
-        </option>
+        <option value="all">All</option>
+        <option value="completed">Completed</option>
+        <option value="pending">Pending</option>
+        <option value="active">Active</option>
       </select>
     </label>
   );

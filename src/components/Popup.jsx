@@ -1,5 +1,4 @@
 import React from "react";
-import Form from "./Form";
 
 const Popup = ({ children, content }) => {
   return (
@@ -8,7 +7,7 @@ const Popup = ({ children, content }) => {
         <h1 className="text-center mb-5 text-2xl text-pColor">
           {content ? content : "Add New Todo"}
         </h1>
-        {children ? children : <Form />}
+        {children}
       </div>
     </div>
   );

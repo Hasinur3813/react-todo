@@ -1,5 +1,5 @@
 import React from "react";
-import Popup from "./addTodo/Popup";
+import Popup from "./Popup";
 import Button from "./Button";
 
 const ConfirmRemove = ({ deleteTodo, id, closePopup }) => {
