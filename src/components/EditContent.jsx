@@ -15,7 +15,7 @@ const EditContent = ({ text, handlePopup, handleUpdateTodo }) => {
         <label htmlFor="text">
           Your Todo
           <input
-            className="block w-full border border-pColor px-2 my-1 rounded py-2"
+            className="text-base block w-full border border-pColor px-2 my-1 rounded py-2"
             type="text"
             name=""
             id="text"

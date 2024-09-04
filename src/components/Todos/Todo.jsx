@@ -11,7 +11,7 @@ const Todo = (props) => {
           onChange={(e) => props.handleCheck(e.target.id)}
           checked={props.todo.checked}
         />
-        <p className={`${props.todo.checked && "line-through"} lg:text-base`}>
+        <p className={`${props.todo.checked && "line-through"} text-lg`}>
           {props.todo.todo}
         </p>
       </div>
