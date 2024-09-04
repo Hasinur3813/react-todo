@@ -1,6 +1,6 @@
 import React from "react";
 
-const Filter = () => {
+const Filter = ({ handleFilterButton }) => {
   return (
     <label>
       Filter
@@ -9,10 +9,27 @@ const Filter = () => {
         name=""
         id=""
       >
-        <option value="All">All</option>
-        <option value="Completed">Completed</option>
-        <option value="Pending">Pending</option>
-        <option value="Active">Active</option>
+        <option value="all" onClick={(e) => handleFilterButton(e.target.value)}>
+          All
+        </option>
+        <option
+          value="completed"
+          onClick={(e) => handleFilterButton(e.target.value)}
+        >
+          Completed
+        </option>
+        <option
+          value="pending"
+          onClick={(e) => handleFilterButton(e.target.value)}
+        >
+          Pending
+        </option>
+        <option
+          value="Active"
+          onClick={(e) => handleFilterButton(e.target.value)}
+        >
+          Active
+        </option>
       </select>
     </label>
   );

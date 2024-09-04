@@ -44,6 +44,8 @@ const App = () => {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [showRTodoPopup, setRTodoPopup] = useState(false);
+  const [filter, setFilter] = useState("all");
+
   useEffect(() => {
     setTodos(staticTodo);
   }, []);
@@ -111,18 +113,25 @@ const App = () => {
     setSelectedTodo(null);
   };
 
+  // filter todo implementation
+
+  const handleFilterButton = (status) => {
+    setFilter(status);
+  };
+
   return (
     <div className="font-display">
       <Layout>
         <Heading />
         <AddTodo />
-        <Features />
+        <Features handleFilterButton={handleFilterButton} />
         <Todos
           todos={todos}
           handleUpdateTodo={handleUpdateTodo}
           onSelectTodo={onSelectTodo}
           handleCheck={handleCheck}
           handleRemoveTodo={handleRemoveTodo}
+          filter={filter}
         />
         {selectedTodo && showPopup && (
           <EditContent
