@@ -1,18 +1,16 @@
 import React from "react";
 
-const Sort = () => {
+const Sort = ({ handleSortOption }) => {
   return (
     <label>
       Sort
       <select
         className="bg-slate-200 px-3 rounded-sm border border-pColor ms-1"
-        name=""
-        id=""
+        onChange={(e) => handleSortOption(e.target.value)}
       >
-        <option value="Auto">Auto</option>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
+        <option value="auto">Auto</option>
+        <option value="asc">Ascending</option>
+        <option value="dsc">Descending</option>
       </select>
     </label>
   );

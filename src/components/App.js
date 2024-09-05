@@ -15,7 +15,7 @@ const staticTodo = [
   {
     id: 1,
     todo: "This is my todo text",
-    priority: "High",
+    priority: "Medium",
     date: "24th July 24",
     checked: false,
     completed: false,
@@ -36,6 +36,14 @@ const staticTodo = [
     checked: false,
     completed: false,
   },
+  {
+    id: 4,
+    todo: "React is ongoing..",
+    priority: "High",
+    date: "28th Aug 24",
+    checked: false,
+    completed: false,
+  },
 ];
 
 const App = () => {
@@ -45,6 +53,7 @@ const App = () => {
   const [showRTodoPopup, setRTodoPopup] = useState(false);
   const [showTodoAdd, setShowTodoAdd] = useState(false);
   const [filter, setFilter] = useState("all");
+  const [sortDirection, setSortDirection] = useState("auto");
 
   useEffect(() => {
     const updatedTodos = setStatus(staticTodo);
@@ -137,12 +146,19 @@ const App = () => {
     setFilter(status);
   };
 
+  // sorting order functionality
+  const handleSortOption = (value) => {
+    setSortDirection(value);
+  };
   return (
     <div className="font-display">
       <Layout>
         <Heading />
         <AddTodo handleAddTodo={handleAddTodo} />
-        <Features handleFilterButton={handleFilterButton} />
+        <Features
+          handleFilterButton={handleFilterButton}
+          handleSortOption={handleSortOption}
+        />
         <Todos
           todos={todos}
           handleUpdateTodo={handleUpdateTodo}
@@ -150,6 +166,7 @@ const App = () => {
           handleCheck={handleCheck}
           handleRemoveTodo={handleRemoveTodo}
           filter={filter}
+          sortDirection={sortDirection}
           handleAddTodo={handleAddTodo}
         />
         {selectedTodo && showPopup && (

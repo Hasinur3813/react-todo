@@ -3,6 +3,7 @@ import React from "react";
 import Todo from "./Todo";
 import Button from "../Button";
 import { filterTodos } from "../../utilityFunctions/filterTodos";
+import { sortedTodosByPriority } from "../../utilityFunctions/sortTodos";
 
 const Todos = ({
   todos,
@@ -10,13 +11,16 @@ const Todos = ({
   handleCheck,
   handleRemoveTodo,
   filter,
+  sortDirection,
   handleAddTodo,
 }) => {
   const filteredTodos = filterTodos(filter, todos);
 
+  const sortTodos = sortedTodosByPriority(filteredTodos, sortDirection);
+
   return (
     <div className="space-y-6">
-      {filteredTodos.length === 0 && filter === "all" && (
+      {sortTodos.length === 0 && filter === "all" && (
         <div className="text-center space-y-5">
           <h1 className="text-center mt-20 text-2xl text-slate-600">
             No todos were found!
@@ -30,8 +34,8 @@ const Todos = ({
         </div>
       )}
 
-      {filteredTodos.length > 0 ? (
-        filteredTodos.map((todo) => (
+      {sortTodos.length > 0 ? (
+        sortTodos.map((todo) => (
           <Todo
             key={todo.id}
             todo={todo}

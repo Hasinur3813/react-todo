@@ -20,7 +20,7 @@ export function formatDate(submittedDate) {
 
     date = new Date(submittedDate);
     day = date.getDate();
-    year = parseInt(String(date.getFullYear()).split("").slice(2, 4).join(""));
+    year = parseInt(String(date.getFullYear()).split("").slice(-2).join(""));
 
     let trackMonth = date.getMonth();
     month = monthName[Object.keys(monthName).find((m) => m === trackMonth)];
