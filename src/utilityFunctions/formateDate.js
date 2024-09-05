@@ -13,7 +13,7 @@ const monthName = {
   11: "Dec",
 };
 
-export function useFormatDate(submittedDate) {
+export function formatDate(submittedDate) {
   if (submittedDate) {
     let date;
     let day, month, year, fullDate;
@@ -24,16 +24,27 @@ export function useFormatDate(submittedDate) {
 
     let trackMonth = date.getMonth();
     month = monthName[Object.keys(monthName).find((m) => m === trackMonth)];
-    fullDate = day + "th " + month + " " + year;
+
+    day =
+      day === 1
+        ? day + "st "
+        : day === 2
+        ? day + "nd "
+        : day === 3
+        ? day + "rd "
+        : day + "th";
+
+    fullDate = day + month + " " + year;
     return fullDate;
   }
 }
 
-export function useCompareDate(date) {
-  const oldDate = new Date(date).toLocaleDateString();
-  const newDate = new Date().toLocaleDateString();
+export function compareDate(date) {
+  const makeValidDate = date.replace(/(\d+)(st|nd|rd|th)/, "$1");
+  const todoDate = new Date(makeValidDate);
+  const newDate = new Date();
 
-  if (oldDate < newDate || oldDate === newDate) {
+  if (todoDate > newDate || todoDate === newDate) {
     return "active";
   } else {
     return "pending";

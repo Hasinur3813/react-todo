@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmRemove from "./ConfirmRemove";
 import AddTodoPopup from "./addTodo/AddTodoPopup";
+import { compareDate } from "../utilityFunctions/formateDate";
 
 const staticTodo = [
   {
@@ -18,25 +19,22 @@ const staticTodo = [
     date: "24th July 24",
     checked: false,
     completed: false,
-    editable: false,
   },
   {
     id: 2,
     todo: "Have to complte the app",
     priority: "Medium",
-    date: "24th July 24",
+    date: "24th Sep 24",
     checked: false,
     completed: false,
-    editable: false,
   },
   {
     id: 3,
     todo: "React is ongoing..",
     priority: "Low",
-    date: "24th July 24",
+    date: "28th Aug 24",
     checked: false,
     completed: false,
-    editable: false,
   },
 ];
 
@@ -49,8 +47,21 @@ const App = () => {
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    setTodos(staticTodo);
+    const updatedTodos = setStatus(staticTodo);
+    setTodos(updatedTodos);
   }, []);
+
+  // compare date and set status
+  const setStatus = (todos) => {
+    return todos.map((todo) => {
+      let status = compareDate(todo.date);
+
+      return {
+        ...todo,
+        status,
+      };
+    });
+  };
 
   // handle add todo button
   const handleAddTodo = () => {
