@@ -54,11 +54,28 @@ const App = () => {
   const [showTodoAdd, setShowTodoAdd] = useState(false);
   const [filter, setFilter] = useState("all");
   const [sortDirection, setSortDirection] = useState("auto");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     const updatedTodos = setStatus(staticTodo);
     setTodos(updatedTodos);
   }, []);
+
+  // set darkmode
+  useEffect(() => {
+    const getTheme = localStorage.getItem("theme");
+    if (getTheme) {
+      setTheme(getTheme);
+    }
+    document.documentElement.setAttribute("class", theme);
+  }, [theme]);
+
+  // handle theme change button
+
+  const handleThemeChange = (theme) => {
+    localStorage.setItem("theme", theme);
+    setTheme(theme);
+  };
 
   // compare date and set status
   const setStatus = (todos) => {
@@ -158,6 +175,8 @@ const App = () => {
         <Features
           handleFilterButton={handleFilterButton}
           handleSortOption={handleSortOption}
+          handleThemeChange={handleThemeChange}
+          theme={theme}
         />
         <Todos
           todos={todos}

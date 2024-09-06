@@ -7,7 +7,7 @@ const Control = ({ type, text, handlePopup, handleAddTodo }) => {
       <Button
         onClick={handlePopup || handleAddTodo}
         text="Cancel"
-        className="border border-red-400 bg-red-50 hover:bg-red-200 "
+        className="border dark:text-darkMode border-red-400 bg-red-50 hover:bg-red-200 "
       />
 
       <input

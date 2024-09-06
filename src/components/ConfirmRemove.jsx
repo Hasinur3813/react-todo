@@ -12,13 +12,13 @@ const ConfirmRemove = ({ deleteTodo, id, closePopup }) => {
         <div className="flex justify-between mt-8">
           <Button
             onClick={closePopup}
-            className="bg-red-50 border-red-400 hover:bg-red-200 border"
             text="Cancel"
+            className="bg-transparent border border-pColor dark:text-white"
           />
 
           <Button
             onClick={() => deleteTodo(id)}
-            className="bg-pColor text-white hover:bg-blue-500"
+            className="bg-red-50 border-red-400 dark:text-darkMode dark:bg-red-200 dark:hover:bg-red-400 hover:bg-red-200 border"
             text="Delete"
           />
         </div>

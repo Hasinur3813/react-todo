@@ -2,15 +2,21 @@ import React from "react";
 
 const Sort = ({ handleSortOption }) => {
   return (
-    <label>
+    <label className="dark:text-white dark:bg-transparent">
       Sort
       <select
-        className="bg-slate-200 px-3 rounded-sm border border-pColor ms-1"
+        className="bg-slate-200 px-3 rounded-sm border border-pColor ms-1 dark:bg-transparent"
         onChange={(e) => handleSortOption(e.target.value)}
       >
-        <option value="auto">Auto</option>
-        <option value="asc">Ascending</option>
-        <option value="dsc">Descending</option>
+        <option className="dark:bg-darkMode" value="auto">
+          Auto
+        </option>
+        <option className="dark:bg-darkMode" value="asc">
+          Ascending
+        </option>
+        <option className="dark:bg-darkMode" value="dsc">
+          Descending
+        </option>
       </select>
     </label>
   );

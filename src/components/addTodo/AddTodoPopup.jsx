@@ -20,7 +20,7 @@ const AddTodoPopup = ({ handleAddTodo }) => {
         <label className="my-5 block" htmlFor="date">
           Date to be finished the Todo
           <input
-            className="block mt-1 border border-pColor px-3 py-2 rounded w-full"
+            className="block mt-1 border border-pColor px-3 py-2 rounded w-full dark:text-darkMode"
             type="date"
             name=""
             id="date"
@@ -30,9 +30,8 @@ const AddTodoPopup = ({ handleAddTodo }) => {
         <label htmlFor="priority">
           Select Priority
           <select
-            name=""
             id="priority"
-            className="mt-1 w-full px-3 py-2 rounded border border-pColor"
+            className="dark:text-darkMode mt-1 w-full px-3 py-2 rounded border border-pColor"
           >
             <option value="select">Select</option>
             <option value="select">High</option>

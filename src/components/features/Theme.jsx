@@ -1,16 +1,20 @@
 import React from "react";
 
-const Theme = () => {
+const Theme = ({ handleThemeChange, theme }) => {
   return (
-    <label>
+    <label className="dark:text-white">
       Theme
       <select
-        className="bg-slate-200 px-3 rounded-sm border border-pColor ms-1"
-        name=""
-        id=""
+        onChange={(e) => handleThemeChange(e.target.value)}
+        className="bg-slate-200 px-3 rounded-sm border border-pColor ms-1 dark:bg-transparent"
+        value={theme === "dark" ? "dark" : "light"}
       >
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
+        <option className="dark:bg-darkMode" value="light">
+          Light
+        </option>
+        <option className="dark:bg-darkMode" value="dark">
+          Dark
+        </option>
       </select>
     </label>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 const Todo = (props) => {
   return (
-    <div className="mt-20 flex flex-col md:flex-row gap-y-4 justify-between p-3 rounded-md bg-slate-200 hover:bg-slate-300 duration-200">
+    <div className="mt-20 flex flex-col md:flex-row gap-y-4 justify-between p-3 rounded-md bg-slate-200 dark:bg-darkHover dark:border dark:border-pColor dark:text-white dark:hover:bg-transparent hover:bg-slate-300 duration-200">
       <div className="flex justify-start items-center gap-4">
         <input
           id={props.todo.id}
