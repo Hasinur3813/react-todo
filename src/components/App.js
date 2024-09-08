@@ -11,41 +11,6 @@ import ConfirmRemove from "./ConfirmRemove";
 import AddTodoPopup from "./addTodo/AddTodoPopup";
 import { compareDate } from "../utilityFunctions/formateDate";
 
-const staticTodo = [
-  {
-    id: 1,
-    todo: "This is my todo text",
-    priority: "Medium",
-    date: "24th July 24",
-    checked: false,
-    completed: false,
-  },
-  {
-    id: 2,
-    todo: "Have to complte the app",
-    priority: "Medium",
-    date: "24th Sep 24",
-    checked: false,
-    completed: false,
-  },
-  {
-    id: 3,
-    todo: "React is ongoing..",
-    priority: "Low",
-    date: "28th Aug 24",
-    checked: false,
-    completed: false,
-  },
-  {
-    id: 4,
-    todo: "React is ongoing..",
-    priority: "High",
-    date: "28th Aug 24",
-    checked: false,
-    completed: false,
-  },
-];
-
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -57,9 +22,35 @@ const App = () => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const updatedTodos = setStatus(staticTodo);
-    setTodos(updatedTodos);
+    try {
+      const getStoredTodos = localStorage.getItem("todos");
+
+      if (getStoredTodos) {
+        const todos = JSON.parse(getStoredTodos);
+        setTodos(todos);
+      } else {
+        setTodos([]);
+      }
+    } catch (e) {
+      alert("Error parsing todos from localstorage");
+      console.log("Parsing error: " + e);
+      setTodos([]);
+    }
   }, []);
+
+  // sync localStorage whenever todos change
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  // added todo control
+  const handleSubmitTodo = (todo) => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    const addTodo = [...storedTodos, todo];
+    localStorage.setItem("todos", JSON.stringify(addTodo));
+    setTodos(setStatus(addTodo));
+    toast("Your todo has been added!");
+  };
 
   // set darkmode
   useEffect(() => {
@@ -150,11 +141,11 @@ const App = () => {
   };
 
   const deleteTodo = (id) => {
-    let updatedTodos = todos.filter((todo) => todo.id !== parseInt(id));
-    setTodos(updatedTodos);
-    toast("Removed the todo");
+    let withoutDeleted = todos.filter((todo) => todo.id !== id);
+    setTodos(withoutDeleted);
     setRTodoPopup(false);
     setSelectedTodo(null);
+    toast("Removed the todo");
   };
 
   // filter todo implementation
@@ -167,6 +158,7 @@ const App = () => {
   const handleSortOption = (value) => {
     setSortDirection(value);
   };
+
   return (
     <div className="font-display">
       <Layout>
@@ -202,7 +194,12 @@ const App = () => {
             closePopup={closePopup}
           />
         )}
-        {showTodoAdd && <AddTodoPopup handleAddTodo={handleAddTodo} />}
+        {showTodoAdd && (
+          <AddTodoPopup
+            handleAddTodo={handleAddTodo}
+            handleSubmitTodo={handleSubmitTodo}
+          />
+        )}
 
         <ToastContainer />
       </Layout>

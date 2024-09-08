@@ -22,9 +22,11 @@ export function formatDate(submittedDate) {
     day = date.getDate();
     year = parseInt(String(date.getFullYear()).split("").slice(-2).join(""));
 
-    let trackMonth = date.getMonth();
-    month = monthName[Object.keys(monthName).find((m) => m === trackMonth)];
+    const trackMonth = date.getMonth();
+    const monthKeys = Object.keys(monthName);
+    const findMonthIndex = monthKeys.find((i) => parseInt(i) === trackMonth);
 
+    month = monthName[findMonthIndex];
     day =
       day === 1
         ? day + "st "
@@ -32,7 +34,7 @@ export function formatDate(submittedDate) {
         ? day + "nd "
         : day === 3
         ? day + "rd "
-        : day + "th";
+        : day + "th ";
 
     fullDate = day + month + " " + year;
     return fullDate;
