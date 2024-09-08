@@ -89,14 +89,14 @@ const App = () => {
 
   // handle the todo that is checked as markded
   const handleCheck = (id) => {
+    console.log(id);
     let modifiedTodo = todos.map((todo) => {
-      if (todo.id === parseInt(id)) {
+      if (todo.id === id) {
         return { ...todo, checked: !todo.checked, completed: !todo.completed };
       } else {
         return todo;
       }
     });
-
     setTodos(modifiedTodo);
   };
 
@@ -144,6 +144,9 @@ const App = () => {
 
   const deleteTodo = (id) => {
     let withoutDeleted = todos.filter((todo) => todo.id !== id);
+    withoutDeleted.length !== 0
+      ? setTodos(withoutDeleted)
+      : localStorage.removeItem("todos");
     setTodos(withoutDeleted);
     setRTodoPopup(false);
     setSelectedTodo(null);
