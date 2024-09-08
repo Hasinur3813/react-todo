@@ -40,7 +40,9 @@ const App = () => {
 
   // sync localStorage whenever todos change
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    if (todos.length > 0) {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
   }, [todos]);
 
   // added todo control
