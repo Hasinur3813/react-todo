@@ -7,12 +7,11 @@ import { sortedTodosByPriority } from "../../utilityFunctions/sortTodos";
 
 const Todos = ({
   todos,
-  onSelectTodo,
-  handleCheck,
-  handleRemoveTodo,
   filter,
   sortDirection,
-  handleAddTodo,
+  setShowTodoAdd,
+  setShowPopup,
+  setRTodoPopup,
 }) => {
   const filteredTodos = filterTodos(filter, todos);
 
@@ -27,7 +26,7 @@ const Todos = ({
           </h1>
 
           <Button
-            onClick={handleAddTodo}
+            onClick={() => setShowTodoAdd(true)}
             className="bg-pColor text-white hover:bg-blue-500"
             text="Add New"
           />
@@ -39,9 +38,8 @@ const Todos = ({
           <Todo
             key={todo.id}
             todo={todo}
-            onSelectTodo={onSelectTodo}
-            handleCheck={handleCheck}
-            handleRemoveTodo={handleRemoveTodo}
+            setRTodoPopup={setRTodoPopup}
+            setShowPopup={setShowPopup}
           />
         ))
       ) : filter === "completed" ||

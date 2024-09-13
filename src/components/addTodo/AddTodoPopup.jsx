@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Control from "./Control";
 import Popup from "../Popup";
 import { shortId } from "../../utilityFunctions/shortId";
-import { formatDate } from "../../utilityFunctions/formateDate";
+import { formatDate, compareDate } from "../../utilityFunctions/formateDate";
+import { TodosContext } from "../../context/TodosContext";
+import { toast } from "react-toastify";
 
-const AddTodoPopup = ({ handleAddTodo, handleSubmitTodo }) => {
+const AddTodoPopup = ({ setShowTodoAdd }) => {
+  const [, setTodos] = useContext(TodosContext);
   const [todo, setTodo] = useState("");
   const [date, setDate] = useState("");
   const [priority, setPriority] = useState("Select");
@@ -15,8 +18,9 @@ const AddTodoPopup = ({ handleAddTodo, handleSubmitTodo }) => {
       alert("Fillup all the fields with Priority ");
     } else {
       // make a valid todo object
-      let id = shortId(10);
-      let formattedDate = formatDate(date);
+      const id = shortId(10);
+      const formattedDate = formatDate(date);
+      const status = compareDate(date);
 
       const createTodo = {
         id: id,
@@ -25,14 +29,23 @@ const AddTodoPopup = ({ handleAddTodo, handleSubmitTodo }) => {
         priority: priority,
         completed: false,
         checked: false,
+        status: status,
       };
 
       // return the todo
       handleSubmitTodo(createTodo);
 
       // close popup
-      handleAddTodo();
+      setShowTodoAdd(false);
     }
+  };
+  // added todo control
+  const handleSubmitTodo = (todo) => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    const addTodo = [...storedTodos, todo];
+    localStorage.setItem("todos", JSON.stringify(addTodo));
+    setTodos(addTodo);
+    toast("Your todo has been added!");
   };
 
   const handleTodoType = (e) => {
@@ -89,7 +102,11 @@ const AddTodoPopup = ({ handleAddTodo, handleSubmitTodo }) => {
             <option value="Low">Low</option>
           </select>
         </label>
-        <Control type="submit" text="Add New" handleAddTodo={handleAddTodo} />
+        <Control
+          type="submit"
+          text="Add New"
+          handleAddTodo={() => setShowTodoAdd(false)}
+        />
       </form>
     </Popup>
   );

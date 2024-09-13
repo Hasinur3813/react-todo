@@ -1,5 +1,3 @@
-import React from "react";
-
 const Popup = ({ children, content }) => {
   return (
     <div className="flex w-screen h-screen overflow-hidden bg-slate-700 dark:bg-slate-800 dark:bg-opacity-50 bg-opacity-50 justify-center items-center fixed top-0 left-0">

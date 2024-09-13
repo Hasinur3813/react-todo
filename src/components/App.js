@@ -1,25 +1,26 @@
+import { useContext, useEffect, useState } from "react";
 import Layout from "./Layout";
 import Heading from "./Heading";
 import AddTodo from "./addTodo/AddTodo";
 import Features from "./features/Features";
 import Todos from "./Todos/Todos";
-import { useEffect, useState } from "react";
 import EditContent from "./EditContent";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmRemove from "./ConfirmRemove";
 import AddTodoPopup from "./addTodo/AddTodoPopup";
+import { TodosContext } from "../context/TodosContext";
 import { compareDate } from "../utilityFunctions/formateDate";
+import { ThemeContext } from "../context/ThemeContext";
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
-  const [selectedTodo, setSelectedTodo] = useState(null);
+  const [todos, setTodos] = useContext(TodosContext);
   const [showPopup, setShowPopup] = useState(false);
   const [showRTodoPopup, setRTodoPopup] = useState(false);
   const [showTodoAdd, setShowTodoAdd] = useState(false);
   const [filter, setFilter] = useState("all");
   const [sortDirection, setSortDirection] = useState("auto");
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useContext(ThemeContext);
 
   useEffect(() => {
     try {
@@ -27,7 +28,7 @@ const App = () => {
 
       if (getStoredTodos) {
         const todos = JSON.parse(getStoredTodos);
-        setTodos(todos);
+        setTodos(setStatus(todos));
       } else {
         setTodos([]);
       }
@@ -36,7 +37,7 @@ const App = () => {
       console.log("Parsing error: " + e);
       setTodos([]);
     }
-  }, []);
+  }, [setTodos]);
 
   // sync localStorage whenever todos change
   useEffect(() => {
@@ -45,15 +46,6 @@ const App = () => {
     }
   }, [todos]);
 
-  // added todo control
-  const handleSubmitTodo = (todo) => {
-    const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-    const addTodo = [...storedTodos, todo];
-    localStorage.setItem("todos", JSON.stringify(addTodo));
-    setTodos(setStatus(addTodo));
-    toast("Your todo has been added!");
-  };
-
   // set darkmode
   useEffect(() => {
     const getTheme = localStorage.getItem("theme");
@@ -61,14 +53,7 @@ const App = () => {
       setTheme(getTheme);
     }
     document.documentElement.setAttribute("class", theme);
-  }, [theme]);
-
-  // handle theme change button
-
-  const handleThemeChange = (theme) => {
-    localStorage.setItem("theme", theme);
-    setTheme(theme);
-  };
+  }, [theme, setTheme]);
 
   // compare date and set status
   const setStatus = (todos) => {
@@ -82,129 +67,23 @@ const App = () => {
     });
   };
 
-  // handle add todo button
-  const handleAddTodo = () => {
-    setShowTodoAdd(!showTodoAdd);
-  };
-
-  // handle the todo that is checked as markded
-  const handleCheck = (id) => {
-    console.log(id);
-    let modifiedTodo = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, checked: !todo.checked, completed: !todo.completed };
-      } else {
-        return todo;
-      }
-    });
-    setTodos(modifiedTodo);
-  };
-
-  // edit and update the todo
-
-  const handleUpdateTodo = (e, updateText) => {
-    e.preventDefault();
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === selectedTodo.id ? { ...todo, todo: updateText } : todo
-      )
-    );
-    toast("Your Todo has been updated...");
-    setShowPopup(false);
-    setSelectedTodo(null);
-  };
-
-  // select a todo for editing the todo
-  const onSelectTodo = (todo) => {
-    if (todo.completed) {
-      toast("Todo is already marked as completed!");
-    } else {
-      setSelectedTodo(todo);
-      setShowPopup(true);
-    }
-  };
-
-  // show edit popup or not base on the state
-  const handlePopup = () => {
-    setShowPopup(false);
-    setSelectedTodo(null);
-  };
-
-  // remove a todo from todos
-
-  const handleRemoveTodo = (todo) => {
-    setRTodoPopup(true);
-    setSelectedTodo(todo);
-  };
-
-  const closePopup = () => {
-    setRTodoPopup(false);
-    setSelectedTodo(null);
-  };
-
-  const deleteTodo = (id) => {
-    let withoutDeleted = todos.filter((todo) => todo.id !== id);
-    withoutDeleted.length !== 0
-      ? setTodos(withoutDeleted)
-      : localStorage.removeItem("todos");
-    setTodos(withoutDeleted);
-    setRTodoPopup(false);
-    setSelectedTodo(null);
-    toast("Removed the todo");
-  };
-
-  // filter todo implementation
-
-  const handleFilterButton = (status) => {
-    setFilter(status);
-  };
-
-  // sorting order functionality
-  const handleSortOption = (value) => {
-    setSortDirection(value);
-  };
-
   return (
     <div className="font-display">
       <Layout>
         <Heading />
-        <AddTodo handleAddTodo={handleAddTodo} />
-        <Features
-          handleFilterButton={handleFilterButton}
-          handleSortOption={handleSortOption}
-          handleThemeChange={handleThemeChange}
-          theme={theme}
-        />
+        <AddTodo setShowTodoAdd={setShowTodoAdd} />
+        <Features setFilter={setFilter} setSortDirection={setSortDirection} />
         <Todos
           todos={todos}
-          handleUpdateTodo={handleUpdateTodo}
-          onSelectTodo={onSelectTodo}
-          handleCheck={handleCheck}
-          handleRemoveTodo={handleRemoveTodo}
+          setShowPopup={setShowPopup}
+          setRTodoPopup={setRTodoPopup}
           filter={filter}
           sortDirection={sortDirection}
-          handleAddTodo={handleAddTodo}
+          setShowTodoAdd={setShowTodoAdd}
         />
-        {selectedTodo && showPopup && (
-          <EditContent
-            handlePopup={handlePopup}
-            text={selectedTodo.todo}
-            handleUpdateTodo={handleUpdateTodo}
-          />
-        )}
-        {showRTodoPopup && (
-          <ConfirmRemove
-            deleteTodo={deleteTodo}
-            id={selectedTodo.id}
-            closePopup={closePopup}
-          />
-        )}
-        {showTodoAdd && (
-          <AddTodoPopup
-            handleAddTodo={handleAddTodo}
-            handleSubmitTodo={handleSubmitTodo}
-          />
-        )}
+        {showPopup && <EditContent setShowPopup={setShowPopup} />}
+        {showRTodoPopup && <ConfirmRemove setRTodoPopup={setRTodoPopup} />}
+        {showTodoAdd && <AddTodoPopup setShowTodoAdd={setShowTodoAdd} />}
 
         <ToastContainer />
       </Layout>

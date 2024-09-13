@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
-const Theme = ({ handleThemeChange, theme }) => {
+const Theme = () => {
+  const [theme, setTheme] = useContext(ThemeContext);
+
+  const handleThemeChange = (theme) => {
+    localStorage.setItem("theme", theme);
+    setTheme(theme);
+  };
+
   return (
     <label className="dark:text-white">
       Theme

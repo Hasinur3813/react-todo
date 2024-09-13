@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import Popup from "./Popup";
 import Button from "./Button";
+import { TodosContext } from "../context/TodosContext";
+import { toast } from "react-toastify";
 
-const ConfirmRemove = ({ deleteTodo, id, closePopup }) => {
+const ConfirmRemove = ({ setRTodoPopup }) => {
+  const [todos, setTodos, tracTodo, setTracktodo] = useContext(TodosContext);
+
+  const deleteTodo = () => {
+    let withoutDeleted = todos.filter((todo) => todo.id !== tracTodo.id);
+    withoutDeleted.length !== 0
+      ? setTodos(withoutDeleted)
+      : localStorage.removeItem("todos");
+    setTodos(withoutDeleted);
+    setRTodoPopup(false);
+    toast("Todo has been removed!");
+    setTracktodo(null);
+  };
+
   return (
     <Popup content={" "}>
       <div className="text-center">
@@ -11,13 +26,16 @@ const ConfirmRemove = ({ deleteTodo, id, closePopup }) => {
 
         <div className="flex justify-between mt-8">
           <Button
-            onClick={closePopup}
+            onClick={() => {
+              setRTodoPopup(false);
+              setTracktodo(null);
+            }}
             text="Cancel"
             className="bg-transparent border border-pColor dark:text-white"
           />
 
           <Button
-            onClick={() => deleteTodo(id)}
+            onClick={deleteTodo}
             className="bg-red-50 border-red-400 dark:text-darkMode dark:bg-red-200 dark:hover:bg-red-400 hover:bg-red-200 border"
             text="Delete"
           />

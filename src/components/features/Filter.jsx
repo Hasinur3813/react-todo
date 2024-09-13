@@ -1,12 +1,12 @@
 import React from "react";
 
-const Filter = ({ handleFilterButton }) => {
+const Filter = ({ setFilter }) => {
   return (
     <label className="dark:text-white">
       Filter
       <select
         className="bg-slate-200 px-3 rounded-sm border border-pColor ms-1  dark:bg-transparent"
-        onChange={(e) => handleFilterButton(e.target.value)}
+        onChange={(e) => setFilter(e.target.value)}
       >
         <option className="dark:bg-darkMode" value="all">
           All

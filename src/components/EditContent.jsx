@@ -1,17 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Popup from "./Popup";
 import Control from "./addTodo/Control";
+import { TodosContext } from "../context/TodosContext";
+import { toast } from "react-toastify";
 
-const EditContent = ({ text, handlePopup, handleUpdateTodo }) => {
-  const [update, setUpdate] = useState(text);
+const EditContent = ({ setShowPopup }) => {
+  const [, setTodos, trackTodo, setTracktodo] = useContext(TodosContext);
+  const [update, setUpdate] = useState(trackTodo.todo);
 
   const updating = (e) => {
     setUpdate(e.target.value);
   };
 
+  // edit and update the todo
+  const handleUpdateTodo = (e) => {
+    e.preventDefault();
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === trackTodo.id ? { ...todo, todo: update } : todo
+      )
+    );
+    toast("Your Todo has been updated...");
+    setShowPopup(false);
+    setTracktodo(null);
+  };
+
   return (
     <Popup content="Update Your Todo">
-      <form action="" onSubmit={(e) => handleUpdateTodo(e, update)}>
+      <form action="" onSubmit={handleUpdateTodo}>
         <label htmlFor="text">
           Your Todo
           <input
@@ -23,7 +39,11 @@ const EditContent = ({ text, handlePopup, handleUpdateTodo }) => {
             value={update}
           />
         </label>
-        <Control type="submit" text="Update" handlePopup={handlePopup} />
+        <Control
+          type="submit"
+          text="Update"
+          handlePopup={() => setShowPopup(false)}
+        />
       </form>
     </Popup>
   );
